@@ -5,6 +5,7 @@ import router from './router'
 import AppDate from '@/components/AppDate'
 import store from '@/store'
 import firebase from 'firebase/app'
+import 'firebase/database'
 
 Vue.component('AppDate', AppDate)
 
@@ -26,6 +27,9 @@ firebase.initializeApp(firebaseConfig);
 new Vue({
   router,
   store,
-  render: function (h) { return h(App) }
+  render: function (h) { return h(App) },
+  beforeCreate() {
+    store.dispatch('fetchUser', {id: store.state.authId})
+  }
 }).$mount('#app')
 
