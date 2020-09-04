@@ -14,50 +14,40 @@
 
     <!-- use .navbar-open to open nav -->
     <nav class="navbar">
-      <ul>
+      <ul v-if="user">
 
-        <li class="navbar-user" v-if="user">
-          <router-link :to="{name: 'Profile'}">
+        <li class="navbar-user">
+          <a @click.prevent="userDropDownOpen = !userDropDownOpen">
             <img class="avatar-small" :src="user.avatar" alt="">
             <span>
               {{ user.name }}
               <img class="icon-profile" src="../assets/img/arrow-profile.svg" alt="">
             </span>
-          </router-link>
+          </a>
 
           <!-- dropdown menu -->
           <!-- add class "active-drop" to show the dropdown -->
-          <div id="user-dropdown">
+          <div id="user-dropdown" :class="{'active-drop': userDropDownOpen}">
             <div class="triangle-drop"></div>
             <ul class="dropdown-menu">
-              <li class="dropdown-menu-item"><a href="profile.html">View profile</a></li>
-              <li class="dropdown-menu-item"><a href="#">Log out</a></li>
+              <router-link :to="{name: 'Profile'}">View Profile</router-link>
+            </ul>
+            <ul class="dropdown-menu">
+              <li class="dropdown-menu-item">
+                <a @click.prevent="$store.dispatch('signOut')">Sign Out</a>
+              </li>
             </ul>
           </div>
         </li>
       </ul>
-
-      <!--<ul>
+      <ul v-else>
         <li class="navbar-item">
-          <a href="index.html">Home</a>
-        </li>
-        <li class="navbar-item">
-          <a href="category.html">Category</a>
+          <router-link :to="{name: 'SignIn'}">Sign In</router-link>
         </li>
         <li class="navbar-item">
-          <a href="forum.html">Forum</a>
+          <router-link :to="{name: 'Register'}">Register</router-link>
         </li>
-        <li class="navbar-item">
-          <a href="thread.html">Thread</a>
-        </li>
-        &lt;!&ndash; Show these option only on mobile&ndash;&gt;
-        <li class="navbar-item mobile-only">
-          <a href="profile.html">My Profile</a>
-        </li>
-        <li class="navbar-item mobile-only">
-          <a href="#">Logout</a>
-        </li>
-      </ul>-->
+      </ul>
     </nav>
   </header>
 </template>
@@ -71,6 +61,11 @@ export default {
     ...mapGetters({
       user: 'authUser'
     })
+  },
+  data() {
+    return {
+      userDropDownOpen: false
+    }
   }
 }
 </script>

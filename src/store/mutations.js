@@ -12,6 +12,10 @@ const makeAppendChildToParentMutation = ({parent, child}) =>
     }
 
 export default {
+    setAuthId(state, id) {
+        state.authId = id
+    },
+
     setPost(state, {post, postId}) {
         Vue.set(state.posts, postId, post)
     },

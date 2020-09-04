@@ -8,6 +8,8 @@ import Category from '@/views/PageCategory'
 import Profile from '@/views/PageProfile'
 import ThreadCreate from '@/views/PageThreadCreate'
 import ThreadEdit from '@/views/PageThreadEdit'
+import Register from '@/views/PageRegister'
+import SignIn from '@/views/PageSignin'
 
 Vue.use(VueRouter)
 
@@ -67,6 +69,16 @@ const routes = [
         props: {
             edit: true
         }
+    },
+    {
+        path: '/register',
+        name: 'Register',
+        component: Register
+    },
+    {
+        path: '/signin',
+        name: 'SignIn',
+        component: SignIn
     }
     /*{
       path: '/thread',
